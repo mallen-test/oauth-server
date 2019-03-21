@@ -9,3 +9,28 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/OAUTH_SERVER?useUnicode=true&characterEncoding=utf-8
+    hikari:
+      # 校验连接使用的sql，从5.1.3之后的mysql，官网建议使用ping。参见https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-tomcat.html
+      connection-test-query: /* ping */
+  jpa:
+    hibernate:
+      naming:
+        # 该属性定义映射domain到表时使用的名称转换规则，如果不使用如下配置，spring boot会采用默认配置，会将表名，字段名按照spring的风格来定义。
+        # 以至于它会忽略@Table，@Column中定义的名字的大小写。当然，可以采用spring推荐的命名法，详见77.6节
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      #数据库方言
+      hibernate.dialect: org.hibernate.dialect.MySQL55Dialect
+      #是否打印sql
+      hibernate.show_sql: true
+      #是否格式化sql
+      hibernate.format_sql: true
+      #指出什么操作产生的 SQL
+      hibernate.use_sql_comments: true
+      #数据库更新方式
+      hibernate.hbm2ddl.auto: update
