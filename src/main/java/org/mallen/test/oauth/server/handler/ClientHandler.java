@@ -21,9 +21,12 @@ public interface ClientHandler {
 
     /**
      * 新增客户端
+     *
+     * @param appName
      * @param clientId
      * @param clientSecurity
+     * @param redirectUris
      * @param remark
      */
-    void add(String clientId, String clientSecurity, String remark);
+    void add(String appName, String clientId, String clientSecurity, String redirectUris, String remark);
 }

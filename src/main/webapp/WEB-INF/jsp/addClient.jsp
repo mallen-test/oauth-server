@@ -27,7 +27,15 @@
                     Client Secutiry：<input type="text" value="${clientSecurity}" readonly="true" name="clientSecurity">
                 </li>
                 <li class="list-group-item">
-                    说明：<input type="text" class="form-control" id="txt_search_departmentname" name="remark">
+                    应用名称：<input type="text" class="form-control" name="appName">
+                </li>
+
+                <li class="list-group-item">
+                    redirectUris（如果有多个，请使用英文分号分隔）：
+                    <input type="text" class="form-control" name="redirectUris">
+                </li>
+                <li class="list-group-item">
+                    说明：<input type="text" class="form-control" name="remark">
                 </li>
                 <li class="list-group-item">
                     <button type="submit" style="margin-left:50px" id="btn_" class="btn btn-primary">新增</button>

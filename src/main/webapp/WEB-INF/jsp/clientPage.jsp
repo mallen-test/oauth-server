@@ -19,11 +19,11 @@
         <div class="panel-body">
             <form id="formSearch" class="form-horizontal">
                 <div class="form-group" style="margin-top:15px">
-                    <label class="control-label col-sm-1" for="txt_search_departmentname">部门名称</label>
+                    <label class="control-label col-sm-1" for="txt_search_departmentname">Client ID</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="txt_search_departmentname">
                     </div>
-                    <label class="control-label col-sm-1" for="txt_search_statu">状态</label>
+                    <label class="control-label col-sm-1" for="txt_search_statu">Client Security</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="txt_search_statu">
                     </div>
@@ -50,18 +50,22 @@
     <table data-toggle="table">
         <thead>
         <tr>
+            <th>应用名称</th>
             <th>Client ID</th>
             <th>Client Security</th>
             <th>创建时间</th>
+            <th>redirectUris(多个uri使用英文分号分隔)</th>
             <th>备注</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${data}" var="client">
             <tr>
+                <td>${client.appName}</td>
                 <td>${client.clientId}</td>
                 <td>${client.clientSecurity}</td>
                 <td>${client.createdTime}</td>
+                <td>${client.redirectUris}</td>
                 <td>${client.remark}</td>
             </tr>
         </c:forEach>

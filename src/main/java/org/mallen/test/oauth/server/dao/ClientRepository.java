@@ -9,4 +9,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
  * @date 3/20/19
  */
 public interface ClientRepository extends QuerydslPredicateExecutor<Client>, JpaRepository<Client, Long> {
+    Client findByClientId(String clientId);
 }

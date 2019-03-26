@@ -1,12 +1,9 @@
 package org.mallen.test.oauth.server.controller;
 
-import org.mallen.test.common.response.Response;
 import org.mallen.test.oauth.server.domain.Client;
 import org.mallen.test.oauth.server.handler.ClientHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -33,10 +26,10 @@ public class ClientController {
 
     @GetMapping("page")
     public ModelAndView page(
-            @RequestParam(value = "clientId", required = false)String clientId,
-            @RequestParam(value = "clientSecurity", required = false)String clientSecurity,
-            @RequestParam(value = "pageIndex", required = false)Integer pageIndex,
-            @RequestParam(value = "pageSize", required = false)Integer pageSize) {
+            @RequestParam(value = "clientId", required = false) String clientId,
+            @RequestParam(value = "clientSecret", required = false) String clientSecurity,
+            @RequestParam(value = "pageIndex", required = false) Integer pageIndex,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         Page<Client> clientPage = clientHandler.find(clientId, clientSecurity, pageIndex, pageSize);
         ModelAndView result = new ModelAndView("clientPage");
         result.addObject("data", clientPage.getContent());
@@ -55,11 +48,22 @@ public class ClientController {
         return result;
     }
 
+    /**
+     * 新增客户端
+     *
+     * @param clientId
+     * @param clientSecurity
+     * @param redirectUris   重定向地址，如果有多个，采用英文分号分隔
+     * @param remark
+     * @return
+     */
     @PostMapping("add")
-    public String add(@RequestParam("clientId")String clientId,
-                    @RequestParam("clientSecurity")String clientSecurity,
-                    @RequestParam(value = "remark", required = false)String remark) {
-        clientHandler.add(clientId, clientSecurity, remark);
+    public String add(@RequestParam("appName") String appName,
+                      @RequestParam("clientId") String clientId,
+                      @RequestParam("clientSecret") String clientSecurity,
+                      @RequestParam("redirectUris") String redirectUris,
+                      @RequestParam(value = "remark", required = false) String remark) {
+        clientHandler.add(appName, clientId, clientSecurity, redirectUris, remark);
         return "redirect:page?pageSize=100";
     }
 
